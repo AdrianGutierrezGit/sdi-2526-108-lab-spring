@@ -1,4 +1,4 @@
-package com.uniovi.sdi.sdi2526108spring;
+package com.uniovi.sdi.grademanager;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;

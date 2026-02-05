@@ -1,4 +1,4 @@
-package com.uniovi.sdi.sdi2526108spring;
+package com.uniovi.sdi.grademanager;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
