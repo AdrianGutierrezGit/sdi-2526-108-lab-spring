@@ -23,7 +23,7 @@ public class SecurityService {
         if (principal instanceof UserDetails user) {
             return user.getUsername();
         }
-        if (principal instanceof String string) { // "anonymousUser" a veces
+        if (principal instanceof String string) {
             return string;
         }
         return null;

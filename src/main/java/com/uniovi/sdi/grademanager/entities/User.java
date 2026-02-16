@@ -13,6 +13,7 @@ public class User {
     private String lastName;
     private String role;
     private String password;
+
     @Transient
     private String passwordConfirm;
 
