@@ -96,7 +96,11 @@ public class UsersController {
 
     @PostMapping(value = "/user/edit/{id}")
     public String setEdit(@PathVariable Long id, @ModelAttribute User user) {
-        usersService.addUser(user);
+        User u=usersService.getUser(user.getId());
+        u.setDni(user.getDni());
+        u.setName(user.getName());
+        u.setLastName(user.getLastName());
+        usersService.addUserWithoutEncryptPassword(u);
         return "redirect:/user/details/" + id;
     }
 }
