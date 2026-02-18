@@ -4,21 +4,32 @@ import com.uniovi.sdi.grademanager.entities.Department;
 import com.uniovi.sdi.grademanager.entities.Mark;
 import com.uniovi.sdi.grademanager.services.DepartmentsServices;
 import com.uniovi.sdi.grademanager.services.MarksService;
+import com.uniovi.sdi.grademanager.validators.DepartmentsValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class DepartmentsController {
 
     private final DepartmentsServices departmentsServices;
-    public DepartmentsController(DepartmentsServices departmentsServices){
+    private final DepartmentsValidator departmentsValidator;
+
+    public DepartmentsController(DepartmentsServices departmentsServices, DepartmentsValidator departmentsValidator){
         this.departmentsServices = departmentsServices;
+        this.departmentsValidator = departmentsValidator;
     }
 
     @PostMapping("/departments/add")
-    public String setDepartment(@ModelAttribute Department department) {
+    public String setDepartment(@Validated Department department, BindingResult result, Model model) {
+        departmentsValidator.validate(department,result);
+        if(result.hasErrors()){
+            model.addAttribute("department", department);
+            return "/department/add";
+        }
         departmentsServices.addDepartment(department);
         return "redirect:/departments";
 
@@ -43,7 +54,8 @@ public class DepartmentsController {
     }
 
     @GetMapping(value = "/departments/add")
-    public String getDepartment() {
+    public String getDepartment(Model model) {
+        model.addAttribute("department", new Department() );
         return "department/add";
     }
 
