@@ -20,14 +20,12 @@ public class MarksController {
     private final MarksService marksService;
     private final UsersService usersService;
     private final MarksValidator marksValidator;
-    private final HttpSession httpSession;
 
 
-    public MarksController(MarksService marksService, UsersService usersService, MarksValidator marksValidator,  HttpSession httpSession) {
+    public MarksController(MarksService marksService, UsersService usersService, MarksValidator marksValidator) {
         this.marksService = marksService;
         this.usersService = usersService;
         this.marksValidator = marksValidator;
-        this.httpSession = httpSession;
     }
 
     @GetMapping("/mark/add")
@@ -50,13 +48,10 @@ public class MarksController {
 
     }
 
-    @GetMapping(value = "/mark/list")
+    @GetMapping("/mark/list")
     public String getList(Model model) {
-        Set<Mark> consultedList = (Set<Mark>) (httpSession.getAttribute("consultedList") != null ?
-                httpSession.getAttribute("consultedList") : new HashSet<>());
-        model.addAttribute("consultedList", consultedList);
-        model.addAttribute("marksList",marksService.getMarks());
-        return "/mark/list";
+        model.addAttribute("marksList", marksService.getMarks());
+        return "mark/list";
     }
 
     @GetMapping(value = "/mark/details/{id}")
