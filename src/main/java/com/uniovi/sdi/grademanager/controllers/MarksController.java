@@ -51,12 +51,19 @@ public class MarksController {
     }
 
     @GetMapping("/mark/list")
-    public String getList(Model model, Principal principal) {
+    public String getList(Model model, Principal principal, @RequestParam(value = "", required = false) String
+            searchText) {
         String dni = principal.getName();
         User user = usersService.getUserByDni(dni);
-        model.addAttribute("marksList", marksService.getMarksForUser(user) );
+        if (searchText != null && !searchText.isEmpty()) {
+            model.addAttribute("marksList",
+                    marksService.searchMarksByDescriptionAndNameForUser(searchText, user));
+        } else {
+            model.addAttribute("marksList", marksService.getMarksForUser(user));
+        }
         return "mark/list";
     }
+
 
     @GetMapping(value = "/mark/details/{id}")
     public String getDetails(Model model, @PathVariable Long id) {
