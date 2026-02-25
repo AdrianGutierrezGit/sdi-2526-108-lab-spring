@@ -17,6 +17,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 public class UsersController {
     private final UsersService usersService;
@@ -71,8 +74,13 @@ public class UsersController {
 
 
     @GetMapping("/user/list")
-    public String getListado(Model model) {
-        model.addAttribute("usersList", usersService.getUsers());
+    public String getListado(Model model,@RequestParam(value = "", required = false) String
+            searchText ) {
+        List<User> users = usersService.getUsers();
+        if (searchText != null && !searchText.isEmpty()) {
+            users = usersService.searchByNameAndLastName(searchText);
+        }
+        model.addAttribute("usersList", users);
         return "user/list";
     }
 
