@@ -112,6 +112,7 @@ public class MarksController {
         marksService.setMarkResend(true, id);
         return "redirect:/mark/list";
     }
+
     @GetMapping("/mark/{id}/noresend")
     public String setResendFalse(@PathVariable Long id) {
         marksService.setMarkResend(false, id);
