@@ -24,6 +24,10 @@ public class DepartmentsServices {
     }
     @PostConstruct
     public void init() {
+        if (departmentsRepository.count() == 0) {
+            departmentsRepository.save(new Department(null, "INF-01", "Departamento Informatica", "EII", "+34985999865", 20));
+            departmentsRepository.save(new Department(null, "INF-02", "Departamento Geologia", "ESG", "+34985997665", 10));
+        }
     }
 
     public List<Department> getDepartments() {

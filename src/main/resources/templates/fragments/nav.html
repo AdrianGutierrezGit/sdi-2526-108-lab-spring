@@ -32,9 +32,9 @@
                 <a class="nav-link dropdown-toggle" href="#" id="departmentDropdown" role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false"> Gestión de Departamentos
                 </a>
-                <div class="dropdown-menu" aria-labelledby="departmentDropdown">
+                <div class="dropdown-menu" aria-labelledby="departmentDropdown" >
                     <a class="dropdown-item" href="/departments">Ver Departamentos</a>
-                    <a class="dropdown-item" href="/departments/add">Agregar Departamento</a>
+                    <a class="dropdown-item" href="/departments/add" sec:authorize="hasRole('ROLE_ADMIN')">Agregar Departamento</a>
                     <div class="dropdown-divider"></div>
                 </div>
             </li>

@@ -36,8 +36,12 @@ public class SecurityConfiguration {
                         .requestMatchers("/css/**", "/images/**", "/script/**", "/", "/signup",
                                 "/login/**").permitAll()
                         .requestMatchers("/mark/add").hasAuthority("ROLE_PROFESSOR")
+                        .requestMatchers("/department/add").hasAnyAuthority("ROLE_ADMIN")
                         .requestMatchers("/mark/edit/*").hasAuthority("ROLE_PROFESSOR")
-                        .requestMatchers("/mark/delete").hasAuthority("ROLE:PROFESSOR")
+                        .requestMatchers("/department/edit/*").hasAnyAuthority("ROLE_ADMIN")
+                        .requestMatchers("/department/delete").hasAnyAuthority("ROLE_ADMIN")
+                        .requestMatchers("/department/details").hasAnyAuthority("ROLE_ADMIN","ROLE_PROFESSOR")
+                        .requestMatchers("/mark/delete").hasAuthority("ROLE_PROFESSOR")
                         .requestMatchers("/mark/**").hasAnyAuthority("ROLE_STUDENT","ROLE_PROFESSOR","ROLE_ADMIN")
                         .requestMatchers("/user/**").hasAnyRole("ADMIN")
                         .anyRequest().authenticated()
